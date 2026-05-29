@@ -1,0 +1,16 @@
+[project]
+name = "mlb-stats-util"
+version = "0.1.0"
+description = "Useful scripts for pulling/calculating certain MLB metrics"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "pybaseball>=2.2.7",
+  "polars>=1.39.3"
+]
+authors = [
+  {name = "Sohraub Pazuki", email = "sohraubpazuki@gmail.com"}
+]
+license = "GPL-2.0-or-later"
+license-files = ["LICENSE"]
+
