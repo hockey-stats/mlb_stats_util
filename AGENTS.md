@@ -95,6 +95,7 @@ uv run ruff check .
 - **Multi-team Players:** Players traded during the season may appear with "TOT" or multiple entries. The current logic handles this by taking the last team in a comma-separated string.
 - **Park Factors:** Park factors are currently hardcoded in a mapping. If a team is missing, the script will raise a `KeyError`.
 - **Data Conversion:** `pybaseball` returns pandas DataFrames. Always convert to Polars immediately using `pl.from_pandas(df)`.
+- **Code Consistency:** Never assume that fixes or updates implemented in one script should be applied to others. Always seek explicit user confirmation before propagating changes across different modules.
 
 ## Task-Specific Guidance
 

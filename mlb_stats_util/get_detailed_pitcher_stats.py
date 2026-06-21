@@ -1,6 +1,14 @@
 import pybaseball as pyb
 import polars as pl
+import pandas as pd
+import warnings
+from datetime import datetime
 from typing import Dict, Tuple, Any
+
+# Suppress library-internal noise
+warnings.simplefilter(action="ignore", category=FutureWarning)
+warnings.simplefilter(action="ignore", category=UserWarning)
+pd.options.mode.chained_assignment = None
 
 
 def get_team_name(lev: str, tm: str) -> str:
@@ -170,7 +178,19 @@ def get_detailed_pitcher_stats(year: int) -> pl.DataFrame:
     return final_df
 
 
+def get_default_year() -> int:
+    """
+    Returns the current year if the date is after March 25th, otherwise the previous year.
+    """
+    today = datetime.now()
+    if today.month > 3 or (today.month == 3 and today.day >= 25):
+        return today.year
+    return today.year - 1
+
+
 if __name__ == "__main__":
-    results_df: pl.DataFrame = get_detailed_pitcher_stats(2026)
+    default_year = get_default_year()
+    results_df: pl.DataFrame = get_detailed_pitcher_stats(default_year)
     with pl.Config(tbl_cols=20, tbl_rows=50):
+        print(f"Pitcher Stats for {default_year}:")
         print(results_df.sort(by=pl.col("K-BB%")))
